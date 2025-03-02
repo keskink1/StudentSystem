@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+</h:head>
+<body>
+<div class="container mt-5">
+    <div class="alert alert-warning text-center">
+        <h1>Student Information System <br/> Course Adding Page</h1>
+    </div>
+
+    <div class="alert alert-danger p-4">
+        <h:form>
+            <div class="form-group row">
+                <label for="code" class="col-sm-3 col-form-label" style="font-size: large">Course Code:</label>
+                <div class="col-sm-6">
+                    <p:inputText value="#{newCourseBean.course.courseCode}" required="true" requiredMessage="You have to fill this section" id="code" class="form-control"/>
+                    <p:message for="code" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="cname" class="col-sm-3 col-form-label" style="font-size: large">Course Name:</label>
+                <div class="col-sm-6">
+                    <p:inputText value="#{newCourseBean.course.courseName}" required="true" requiredMessage="You have to fill this section" id="cname" class="form-control"/>
+                    <p:message for="cname" />
+                </div>
+            </div>
+
+            <div class="form-group row justify-content-center">
+                <div class="col-sm-6 text-center">
+                    <p:commandButton action="#{newCourseBean.saveCourse()}" value="Save" ajax="false" class="btn btn-primary btn-lg m-2"/>
+                    <p:button value="Cancel" href="courselist.xhtml" class="btn btn-secondary btn-lg m-2"/>
+                </div>
+            </div>
+        </h:form>
+        <p:messages showDetail="true" autoUpdate="true" />
+    </div>
+</div>
+</body>
+</html>

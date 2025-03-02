@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Course List Operations Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+</h:head>
+<body>
+<div class="container mt-5">
+    <div class="alert alert-warning text-center">
+        <p:outputLabel value="Student Information System" style="font-size: xx-large"/>
+        <br/>
+        <p:outputLabel value="Student Courses Display Page" style="font-size: xx-large" rendered="#{sessionScopeBean.user.role eq 'STUDENT'}"/>
+        <p:outputLabel value="Instructor Courses Display Page" style="font-size: xx-large" rendered="#{sessionScopeBean.user.role eq 'INSTRUCTOR'}"/>
+    </div>
+
+    <div class="alert alert-info">
+        <h:form>
+            <p:dataTable value="#{sessionScopeBean.user.courses}" var="usercourse" rowIndexVar="rowIndex">
+                <f:facet name="header">
+                    COURSE LIST
+                </f:facet>
+
+                <p:column headerText="ID" style="width: 50px">
+                    <h:outputText value="#{rowIndex + 1}"/>
+                </p:column>
+                <p:column headerText="COURSE CODE" sortBy="#{usercourse.course.courseCode}" filterBy="#{usercourse.course.courseCode}">
+                    <h:outputText value="#{usercourse.course.courseCode}"/>
+                </p:column>
+                <p:column headerText="COURSE NAME" sortBy="#{usercourse.course.courseName}" filterBy="#{usercourse.course.courseName}">
+                    <h:outputText value="#{usercourse.course.courseName}"/>
+                </p:column>
+                <p:column headerText="COURSE SCORE" rendered="#{usercourse.user.role eq 'STUDENT'}">
+                    <h:outputText value="Not scored yet" rendered="#{usercourse.user.role eq 'STUDENT' and usercourse.courseScore eq 0.0}" />
+                    <h:outputText value="#{usercourse.courseScore}" rendered="#{usercourse.user.role eq 'STUDENT' and usercourse.courseScore ne 0.0}" />
+                </p:column>
+                <p:column headerText="SCORE COURSE" rendered="#{sessionScopeBean.user.role eq 'INSTRUCTOR'}">
+                    <p:button value="SCORE COURSE" href="scorecourse.xhtml" class="btn btn-primary"/>
+                </p:column>
+
+                <f:facet name="footer">
+                    There are #{sessionScopeBean.user.courses.size()} assigned courses on the table.
+                </f:facet>
+            </p:dataTable>
+            <p:messages showDetail="true" autoUpdate="true" />
+        </h:form>
+    </div>
+
+    <div class="alert alert-success text-center">
+        <p:button href="main_operation.xhtml" value="Back" class="btn btn-secondary" />
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+</h:head>
+<body>
+<div class="container mt-5">
+    <div class="alert alert-warning text-center">
+        <h1>Student Information System <br/> Login Page </h1>
+    </div>
+
+    <!-- login form  -->
+    <div class="alert alert-info">
+        <h:form>
+            <table class="table table-bordered">
+                <tr>
+                    <td style="font-size: large">Email : </td>
+                    <td><p:inputText value="#{login.email}" required="true" requiredMessage="You have to fill this section" id="email" class="form-control"/></td>
+                    <td><p:message for="email" style="color:red;"/></td>
+                </tr>
+                <tr>
+                    <td style="font-size: large">Password : </td>
+                    <td><p:password value="#{login.password}" required="true" requiredMessage="You have to fill this section" id="passw" class="form-control"/></td>
+                    <td><p:message for="passw" style="color:red;"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <p:commandButton action="#{login.checkUser}" value="Login" ajax="false" class="btn btn-primary"/>
+                        <p:button value="Cancel" href="index.xhtml" class="btn btn-secondary ml-2"/>
+                    </td>
+                </tr>
+            </table>
+            <p:messages showDetail="true" autoUpdate="true" />
+        </h:form>
+    </div>
+
+</div>
+</body>
+</html>

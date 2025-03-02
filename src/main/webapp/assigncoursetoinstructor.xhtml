@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Assign Course to Instructor Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+</h:head>
+<body>
+<div class="container mt-5">
+    <div class="alert alert-warning text-center">
+        <h1>Student Information System <br/> Assign Course to Instructor Page</h1>
+    </div>
+
+    <div class="alert alert-danger p-4">
+        <h:form id="assignCourseForm">
+            <div class="form-group row">
+                <label for="instructor" class="col-sm-3 col-form-label" style="font-size: large">Instructor:</label>
+                <div class="col-sm-6">
+                    <p:selectOneMenu value="#{assignCourseBean.selectedUserId}" id="instructor" style="width: 100%" class="form-control" required="true">
+                        <f:selectItem itemLabel="Select Instructor" itemValue=""/>
+                        <f:selectItems value="#{assignCourseBean.allInstructors}" var="inst" itemValue="#{inst.id}" itemLabel="#{inst.firstname} #{inst.lastname}"/>
+                    </p:selectOneMenu>
+                    <p:message for="instructor" display="icon" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="course" class="col-sm-3 col-form-label" style="font-size: large">Course:</label>
+                <div class="col-sm-6">
+                    <p:selectOneMenu value="#{assignCourseBean.selectedCourseId}" id="course" style="width: 100%" class="form-control" required="true">
+                        <f:selectItem itemLabel="Select Course" itemValue=""/>
+                        <f:selectItems value="#{assignCourseBean.allCourses}" var="usercourse" itemValue="#{usercourse.id}" itemLabel="#{usercourse.courseCode}-#{usercourse.courseName}"/>
+                    </p:selectOneMenu>
+                    <p:message for="course" display="icon" />
+                </div>
+            </div>
+
+            <div class="form-group row justify-content-center">
+                <div class="col-sm-6 text-center">
+                    <p:commandButton action="#{assignCourseBean.assign}" value="Assign" ajax="false" class="btn btn-primary btn-lg m-2"/>
+                    <p:commandButton value="Cancel" class="btn btn-secondary btn-lg m-2"
+                                     actionListener="#{assignCourseBean.resetForm}"
+                                     immediate="true" ajax="false" />
+
+                </div>
+            </div>
+        </h:form>
+
+        <p:messages showDetail="true" autoUpdate="true" />
+    </div>
+</div>
+
+</body>
+</html>
+
