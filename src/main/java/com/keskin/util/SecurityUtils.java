@@ -23,11 +23,4 @@ public class SecurityUtils {
         return str;
     }
 
-    public static void main(String[] args) {
-        String password = "1234";
-        System.out.println("Plain password : " + password);
-        StringBuilder str = hashPassword("1234",HashAlgorithm.SHA1);
-        System.out.println("Hashed password : " + str);
-    }
-
 }
