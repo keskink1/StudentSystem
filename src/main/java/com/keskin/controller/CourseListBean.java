@@ -2,12 +2,11 @@ package com.keskin.controller;
 
 import com.keskin.model.Course;
 import com.keskin.service.CourseService;
+import com.keskin.util.FacesMessageUtil;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 import java.util.List;
 
 @ManagedBean
@@ -25,8 +24,8 @@ public class CourseListBean {
 
     public String deleteCourse(Course course){
         courseService.deleteCourse(course);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Delete success",
-                "  Course deleted from database!"));
+        FacesMessageUtil.addInfo("Delete success", "Course deleted from database!");
+
         return "courselist?faces-redirect=true";
     }
 

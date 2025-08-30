@@ -3,12 +3,11 @@ package com.keskin.controller;
 import com.keskin.exception.EmailAlreadyExistsException;
 import com.keskin.model.User;
 import com.keskin.service.UserService;
+import com.keskin.util.FacesMessageUtil;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,17 +36,15 @@ public class RegisterBean {
     public String registerUser(){
 
         if(!user.getPassword().equals(password2)){
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Register error",
-                    "  Passwords are not match!"));
+            FacesMessageUtil.addError("Register error", "Passwords are not matching !");
         } else {
 
             try {
                 userService.registerUserToDatabase(user);
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Register success",
-                        "  User saved to database!"));
+                FacesMessageUtil.addInfo("Register success","User saved to database !");
+
             } catch (EmailAlreadyExistsException e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Register not executed",
-                        e.getMessage()));
+                FacesMessageUtil.addWarn("Register not executed","Email already exists!");
             }
         }
 

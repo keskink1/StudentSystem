@@ -4,11 +4,10 @@ import com.keskin.model.Course;
 import com.keskin.model.User;
 import com.keskin.service.CourseService;
 import com.keskin.service.UserService;
+import com.keskin.util.FacesMessageUtil;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.bean.ManagedBean;
 import java.util.List;
 import java.util.Map;
@@ -34,10 +33,8 @@ public class AssignCourseBean {
     }
 
     public String assign() {
-        // null kontrolu
         if (selectedUserId == null || selectedCourseId == null) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "All fields are required.", null));
+            FacesMessageUtil.addError("Validation failed", "All fields are required.");
             return null; // formu yeniden göster
         }
 
@@ -47,14 +44,14 @@ public class AssignCourseBean {
             Map.Entry<User, Course> entry = result.entrySet().iterator().next();
             user = entry.getKey();
             course = entry.getValue();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Assign success", user.getFirstname() + " is assigned to " + course.getCourseName()));
+
+            FacesMessageUtil.addInfo("Assign success",
+                    user.getFirstname() + " is assigned to " + course.getCourseName());
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Assignment failed", "The assignment could not be completed."));
+            FacesMessageUtil.addError("Assignment failed", "The assignment could not be completed.");
         }
 
-        return "assigncourse"; // islem başarili
+        return "assigncourse";
     }
 
     public void resetForm() {

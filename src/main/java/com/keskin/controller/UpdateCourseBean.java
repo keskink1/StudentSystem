@@ -2,10 +2,10 @@ package com.keskin.controller;
 
 import com.keskin.model.Course;
 import com.keskin.service.CourseService;
+import com.keskin.util.FacesMessageUtil;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -33,8 +33,8 @@ public class UpdateCourseBean {
 
     public String updateCourse() {
         courseService.updateCourse(this.course);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Update success",
-                "  Course updated on database!"));
+        FacesMessageUtil.addInfo("Update success", "Course is updated!");
+
         return "updatecourse";
     }
 

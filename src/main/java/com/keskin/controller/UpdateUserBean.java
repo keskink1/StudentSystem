@@ -2,10 +2,10 @@ package com.keskin.controller;
 
 import com.keskin.model.User;
 import com.keskin.service.UserService;
+import com.keskin.util.FacesMessageUtil;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -39,14 +39,14 @@ public class UpdateUserBean {
             int userId = Integer.valueOf(req.getParameter("userId"));
             user = userService.findUser(userId);
         } catch (Exception e) {
-            System.out.println("userID is null...");
+            System.out.println("userID is null");
         }
     }
 
     public String updateUser(){
         userService.updateUser(this.user);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Update success",
-                "  User updated on database!"));
+        FacesMessageUtil.addInfo("Update success", "User updated in database");
+
         return "updateuser";
     }
 

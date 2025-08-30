@@ -2,9 +2,9 @@ package com.keskin.controller;
 
 import com.keskin.model.User;
 import com.keskin.service.LoginService;
+import com.keskin.util.FacesMessageUtil;
 
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
@@ -22,22 +22,21 @@ public class LoginBean {
     @ManagedProperty("#{sessionScopeBean}")
     SessionScopeBean sessionScopeBean;
 
-    public String checkUser(){
+    public String checkUser() {
         boolean result = loginService.checkUserOnDB(email, password);
 
-        if(result){
+        if (result) {
             user = loginService.getUser(email, password);
             sessionScopeBean.setUser(user);
             return "main_operation";
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,"Login error",
-                    "Email or Password is wrong!"));
+            FacesMessageUtil.addWarn("Login error", "Email or Password is wrong!");
             return "login";
         }
     }
 
-    public String logout(){
-        HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    public String logout() {
+        HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         req.getSession().invalidate();
         return "/index";
     }

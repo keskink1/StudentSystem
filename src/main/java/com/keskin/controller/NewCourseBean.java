@@ -2,12 +2,11 @@ package com.keskin.controller;
 
 import com.keskin.model.Course;
 import com.keskin.service.CourseService;
+import com.keskin.util.FacesMessageUtil;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 
 @ManagedBean
 public class NewCourseBean {
@@ -26,11 +25,10 @@ public class NewCourseBean {
         boolean result = courseService.isCourseOnDatabase(this.course.getCourseCode());
         if (!result) {
             courseService.saveNewCourse(this.course);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success ",
-                    "  Course is saved to database"));
+
+            FacesMessageUtil.addInfo("Success ", "Course is saved to database");
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "WARNING ",
-                    "  This course already exists!"));
+            FacesMessageUtil.addWarn("WARNING ", "Course already exists!");
         }
         return "addcourse";
     }
